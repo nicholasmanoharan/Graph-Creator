@@ -130,25 +130,37 @@ int main() {
         cout << "Enter command: "; 
         cin >> command; 
 
-        if (command == "add_vertex") { 
-            cout << "Enter from a vertex to another and its weight: "; 
-            cin >> label; 
-            g.addVertex(label); 
-
-        } else if (command = "add_edge")  { 
-            cout << "Enter a vertex to another and its weight: ";
-            cin >> from >> to >> weight; 
-            g.addEdge(from, to, weight); 
-
-        } else if 
-
-
-
         
-
+        if (command == "add_vertex") {
+            cout << "Enter vertex label: ";
+            cin >> label;
+            g.addVertex(label);
+        } else if (command == "add_edge") {
+            cout << "Enter from vertex, to vertex, and weight: ";
+            cin >> from >> to >> weight;
+            g.addEdge(from, to, weight);
+        } else if (command == "remove_vertex") {
+            cout << "Enter vertex label: ";
+            cin >> label;
+            g.removeVertex(label);
+        } else if (command == "remove_edge") {
+            cout << "Enter from vertex and to vertex: ";
+            cin >> from >> to;
+            g.removeEdge(from, to);
+        } else if (command == "print") {
+            g.printAdjTable();
+        } else if (command == "shortest_path") {
+            cout << "Enter start vertex and end vertex: ";
+            cin >> from >> to;
+            g.findShortestPath(from, to);
+        } else if (command == "quit") {
+            break;
+        } else {
+            cout << "Invalid command." << endl;
+        }
     }
     
-
+    return 0;
 
 
 }
