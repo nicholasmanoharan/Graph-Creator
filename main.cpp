@@ -105,7 +105,7 @@ class Graph {
                 for (vector<string>::iterator it = path.begin(); it != path.end(); ++it) 
                     cout << *it << " "; 
 
-                cout << ""
+                cout << "\nWeight: " << dist[end] << endl; 
             
 
             }
@@ -116,3 +116,39 @@ class Graph {
     }
 
 };
+
+int main() { 
+
+    Graph g; 
+    string command, from, to, label;
+    int weight; 
+
+
+    while (true) { 
+
+        cout << "Commands: add_vertex, add_edge, remove_vertex, remove_edge, print, shortest_path, quit" << endl; 
+        cout << "Enter command: "; 
+        cin >> command; 
+
+        if (command == "add_vertex") { 
+            cout << "Enter from a vertex to another and its weight: "; 
+            cin >> label; 
+            g.addVertex(label); 
+
+        } else if (command = "add_edge")  { 
+            cout << "Enter a vertex to another and its weight: ";
+            cin >> from >> to >> weight; 
+            g.addEdge(from, to, weight); 
+
+        } else if 
+
+
+
+        
+
+    }
+    
+
+
+
+}
