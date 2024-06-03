@@ -1,25 +1,118 @@
-#include <iostream>
+#include <iostream> 
 #include <unordered_map>
-#include <vector>
+#include <vector> 
 #include <set>
 #include <limits>
-#include <algorithm>
+#include <algorithm> 
 using namespace std;
 
-class Graph {
-    unordered_map<string, unordered_map<string, int>> adj;
+class Graph { 
 
-public:
-    void addVertex(const string &label) {
-        adj[label];
+    typedef unordered_map<string, unordered_map<string, int> > AdjMap;
+    AdjMap adj; 
+
+
+    public: 
+        void addVertex(const string &label) { 
+
+            adj[label]; 
+
+        }
+
+        void addEdge(const string &from, const string &to, int weight) { 
+
+            adj[from][to] = weight;
+
+        }
+
+        void removeVertex(const string &label) { 
+
+            adj.erase(label); 
+            for (AdjMap::iterator it = adj.begin(); it != adj.end(); ++it) { 
+                
+                it->second.erase(label); 
+
+            }
+
+        }
+
+        void removeEdge(const string &from, const string &from, const string &to) {
+
+            adj[from].erase(to); 
+
+        }
+
+    void printTable() {
+        for (AdjMap::const_iterator it = adj.begin(); it != adj.end(); ++it) {
+            cout << it->first << ": ";
+            for (unordered_map<string, int>::const_iterator inner_it = it->second.begin(); inner_it != it->second.end(); ++inner_it) {
+                cout << "(" << inner_it->first << ", " << inner_it->second << ") ";
+            }
+            cout << endl;
+        }
     }
 
-    void addEdge(const string &from, const string &to, int weight) {
-        adj[from][to] = weight;
+    void shortestPath(const string &start, const string &end) { 
+
+        typedef unordered_map<string, int> DistMap;
+        typedef unordered_map< string, string> PrevMap; 
+        typedef set<pair<int, string> > PQ; 
+
+        DistMap dist; 
+        DistMap prev; 
+        PQ pq; 
+
+        for (AdjMap::const_iterator it = adj.begin()l it != adk.end(); ++it) {
+
+            dist[it->first] = numeric_limits<int>::max(); 
+
+        }
+
+        dist[start] = 0; 
+        pq.insert(make_pair(0, start)); 
+
+        while (!pq.empty()) { 
+            string u = pq.begin()->second;
+            pq.erase(pq.begin());
+
+            if (u == end) break; 
+
+            for (unordered_map<string, int>::const_iterator it = adj[u].begin; it != adj[u].end(); ++it) { 
+                int alt = dist[u] + it->second; 
+                if (alt < dist[it->first]) { 
+                    pq.erase(make_pair(dist[it->first], it ->first));
+                    dist[it->first] = alt; 
+                    prev[it->first] = u; 
+                    pq.insert(make_pair(alt, it->first)); 
+
+                    
+                }
+            }
+
+            if (dist[end] == numeric_limits<int>::max()) { 
+                cout << "No path was found" << endl; 
+                
+            } else { 
+
+                vector<string> path; 
+                for (string at = end; at != start; at = prev[at])
+                    path.push_back(at);
+                path.push_back(start); 
+                reverse(path.begin(), path.end()); 
+
+
+                cout << "Shortest path is: ";
+                for (vector<string>::iterator it = path.begin(); it != path.end(); ++it) 
+                    cout << *it << " "; 
+
+                cout << ""
+            
+
+            }
+            
+            
+        }
+
     }
 
-    void removeVertex(const string &label) {
-        adj.erase(label);
-        for (auto &p : adj)
-            p.second.erase(label);
-    }
+};
